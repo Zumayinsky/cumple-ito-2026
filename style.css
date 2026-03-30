@@ -1,0 +1,164 @@
+/* Colores Zumatek: Modernos Rojo, Azul y Blanco */
+:root {
+    --rojo-zumatek: #E53935; /* Un rojo vibrante */
+    --azul-zumatek: #1E88E5; /* Un azul claro/medio profesional */
+    --blanco-zumatek: #FFFFFF;
+    --borde-tarjeta: #D32F2F; /* Un rojo más oscuro para el borde */
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    /* Un degradado sutil de fondo */
+    background: linear-gradient(135deg, var(--blanco-zumatek) 0%, #F5F5F5 100%);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden; /* Evita scrolls innecesarios */
+}
+
+/* --- ANIMACIÓN DE FONDO CONTINUA ( emojis y confeti) --- */
+.confetti {
+    position: fixed;
+    top: -20px;
+    user-select: none;
+    pointer-events: none;
+    z-index: -1; /* Detrás de la tarjeta */
+    animation: fall linear forwards infinite;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh) rotate(360deg);
+    }
+}
+
+/* --- CONTENEDOR DE LA TARJETA --- */
+.card-container {
+    width: 350px;
+    height: 500px;
+    perspective: 1500px; /* Importante para el efecto 3D */
+    cursor: pointer;
+    z-index: 10; /* Asegura que la tarjeta esté al frente */
+}
+
+.card {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 1s ease-in-out;
+    border: 5px solid var(--borde-tarjeta);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3); /* Sombra más pronunciada */
+}
+
+.card.open {
+    transform: rotateY(-180deg);
+}
+
+.front, .back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden; /* Oculta la parte trasera cuando está de frente */
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* --- FRENTE --- */
+.front {
+    background-color: var(--blanco-zumatek);
+    color: var(--rojo-zumatek);
+    text-align: center;
+}
+
+.front h1 {
+    font-size: 2.2em;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    line-height: 1.2;
+}
+
+/* --- ANIMACIÓN DE BALANCEO DE LA IMAGEN --- */
+.pulsating-img {
+    width: 100%;
+    height: auto;
+    max-height: 300px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    margin-bottom: 20px;
+    /* La animación se llama balanceo, dura 4s, es suave (ease-in-out) e infinita */
+    animation: balanceo 4s ease-in-out infinite;
+}
+
+@keyframes balanceo {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(3deg); }
+    75% { transform: rotate(-3deg); }
+    100% { transform: rotate(0deg); }
+}
+
+.instruction {
+    font-size: 0.9em;
+    color: var(--azul-zumatek);
+    font-weight: bold;
+}
+
+/* --- ATRÁS --- */
+.back {
+    background-color: var(--azul-zumatek);
+    color: var(--blanco-zumatek);
+    transform: rotateY(180deg); /* La parte trasera está al revés inicialmente */
+    flex-direction: column;
+    text-align: center;
+}
+
+.back h2 {
+    font-size: 1.8em;
+    margin-bottom: 15px;
+}
+
+.profile-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 4px solid var(--blanco-zumatek);
+    object-fit: cover; /* Asegura que la foto se vea bien en el círculo */
+    margin-bottom: 15px;
+}
+
+.message {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    font-style: italic;
+}
+
+.signature {
+    font-size: 1.3em;
+    font-weight: normal;
+}
+
+.signature strong {
+    font-size: 1.5em;
+    color: var(--rojo-zumatek);
+    text-shadow: 0 0 10px rgba(229, 57, 53, 0.5); /* Un resplandor */
+    animation: pulse 2s infinite; /* El nombre de Titi pulsa suavemente */
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
